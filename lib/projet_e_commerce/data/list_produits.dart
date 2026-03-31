@@ -1,8 +1,6 @@
-
 import 'package:projet/projet_e_commerce/model/class_produit.dart';
 
 class AllProductData {
-
   static List<Produit> _produits = [
     Produit(
       id: 'Samsung1',

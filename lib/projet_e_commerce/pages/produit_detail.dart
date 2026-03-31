@@ -2,16 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projet/projet_e_commerce/model/class_produit.dart';
 
 class ProduitDetailPage extends StatefulWidget {
-  Produit produit = Produit(
-    id: "",
-    title: "",
-    description: "",
-    price: 0.0,
-    imageUrl: "",
-    brand: "",
-    produitCategoryName: "",
-    quantity: 0,
-  );
+  final Produit produit;
 
   ProduitDetailPage({super.key, required this.produit});
 
@@ -32,7 +23,7 @@ class _MyWidgetState extends State<ProduitDetailPage> {
             foregroundDecoration: BoxDecoration(color: Colors.black12),
             height: MediaQuery.of(context).size.height * 0.45,
             width: double.infinity,
-            child: Image.network(productInfo.imageUrl),
+            child: Image.network(productInfo.imageUrl, fit: BoxFit.cover),
           ),
           SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -54,7 +45,7 @@ class _MyWidgetState extends State<ProduitDetailPage> {
                         ),
                       ),
                       Text(
-                        productInfo.price.toString(),
+                        '${productInfo.price} TND',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.blue,
@@ -75,26 +66,6 @@ class _MyWidgetState extends State<ProduitDetailPage> {
                     ],
                   ),
                 ),
-                //bouton en ba
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.pink,
-                          foregroundColor: Colors.white,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.zero,
-                          ),
-                        ),
-                        child: const Text("Add to Cart"),
-                      ),
-                    ),
-                  ],
-                ),
               ],
             ),
           ),
@@ -104,6 +75,15 @@ class _MyWidgetState extends State<ProduitDetailPage> {
   }
 
   Widget infoProduct(String title, String value) {
-    return Row(children: [Text(title), Text(value)]);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
+          Flexible(child: Text(value, textAlign: TextAlign.end)),
+        ],
+      ),
+    );
   }
 }

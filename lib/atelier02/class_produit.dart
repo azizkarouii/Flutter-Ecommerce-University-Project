@@ -44,7 +44,7 @@ void main() {
   var p3 = Produit.avecParamOptNomme(code: 10, lib: "aa", qte: 10); /////
   print(p);
 }
-MaterialApp(
-  home:Scaffold(appBar: ,)
-);//config de app: routage, langue, oritenation,theme
+//MaterialApp(
+  //home:Scaffold(appBar: ,)
+//);//config de app: routage, langue, oritenation,theme
 // SCAffold=> un screen :une page 
