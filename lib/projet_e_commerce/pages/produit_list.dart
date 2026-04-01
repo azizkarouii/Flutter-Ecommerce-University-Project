@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projet/projet_e_commerce/data/list_produits.dart';
 import 'package:projet/projet_e_commerce/myWidgets/un_produit.dart';
-import 'package:projet/projet_e_commerce/pages/produit_detail.dart';
 
 class ListProduitPage extends StatefulWidget {
   const ListProduitPage({super.key});
@@ -25,13 +24,10 @@ class _MyWidgetState extends State<ListProduitPage> {
         children: List.generate(AllProductData.Produits.length, (index) {
           return InkWell(
             onTap: () {
-              Navigator.push(
+              Navigator.pushNamed(
                 context,
-                MaterialPageRoute(
-                  builder: (_) => ProduitDetailPage(
-                    produit: AllProductData.Produits[index],
-                  ),
-                ),
+                "ProduitDetailPage",
+                arguments: index,
               );
             },
             child: WidgetProduit(p: AllProductData.Produits[index]),

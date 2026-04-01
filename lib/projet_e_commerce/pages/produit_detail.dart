@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:projet/projet_e_commerce/data/list_produits.dart';
 import 'package:projet/projet_e_commerce/model/class_produit.dart';
 
 class ProduitDetailPage extends StatefulWidget {
-  final Produit produit;
-
-  ProduitDetailPage({super.key, required this.produit});
+  const ProduitDetailPage({super.key});
 
   @override
   State<ProduitDetailPage> createState() => _MyWidgetState();
@@ -13,7 +12,20 @@ class ProduitDetailPage extends StatefulWidget {
 class _MyWidgetState extends State<ProduitDetailPage> {
   @override
   Widget build(BuildContext context) {
-    Produit productInfo = widget.produit;
+    final dynamic param = ModalRoute.of(context)?.settings.arguments;
+    int indexProduit;
+
+    if (param == null || param.toString() == "") {
+      indexProduit = 0;
+    } else {
+      indexProduit = int.parse(param.toString());
+    }
+
+    if (indexProduit < 0 || indexProduit >= AllProductData.Produits.length) {
+      indexProduit = 0;
+    }
+
+    Produit productInfo = AllProductData.Produits[indexProduit];
 
     return Scaffold(
       appBar: AppBar(title: Text(productInfo.title)),
