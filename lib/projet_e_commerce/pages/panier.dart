@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:projet/projet_e_commerce/model/class_produit_panier.dart';
 import 'package:projet/projet_e_commerce/myWidgets/cart_empty.dart';
 import 'package:projet/projet_e_commerce/myWidgets/widget_produit_dans_panier.dart';
+import 'package:projet/projet_e_commerce/provider/cart_provider.dart';
+import 'package:provider/provider.dart';
 
 class PanierPage extends StatelessWidget {
   const PanierPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<ProduitPanier> contenuPanier = [];
+    List<ProduitPanier> contenuPanier = Provider.of<PanierProvider>(
+      context,
+    ).Panier;
 
     print("xxxTAILLE PANIER=" + contenuPanier.length.toString());
 
