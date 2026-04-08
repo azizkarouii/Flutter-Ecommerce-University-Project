@@ -1,9 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:projet/projet_e_commerce/data/list_produits.dart';
 import 'package:projet/projet_e_commerce/model/class_produit.dart';
+import 'package:projet/projet_e_commerce/model/class_produit_panier.dart';
+import 'package:projet/projet_e_commerce/provider/cart_provider.dart';
+import 'package:provider/provider.dart';
 
+/**
+ * Corriger le CR
+ * Finaliser le menu
+ * Presenter le pricnipe StateManager
+ */
 class ProduitDetailPage extends StatefulWidget {
-  const ProduitDetailPage({super.key});
+  // Produit produit = Produit(
+  //   id: "",
+  //   title: "",
+  //   description: "",
+  //   price: 0.0,
+  //   imageUrl: "",
+  //   brand: "",
+  //   produitCategoryName: "",
+  //   quantity: 0,
+  // );
+
+  ProduitDetailPage({
+    super.key,
+    //required this.produit
+  });
 
   @override
   State<ProduitDetailPage> createState() => _MyWidgetState();
@@ -12,19 +34,17 @@ class ProduitDetailPage extends StatefulWidget {
 class _MyWidgetState extends State<ProduitDetailPage> {
   @override
   Widget build(BuildContext context) {
-    final dynamic param = ModalRoute.of(context)?.settings.arguments;
+    final panier = Provider.of<PanierProvider>(context);
+    final dynamic param = ModalRoute.of(context)!.settings.arguments;
     int indexProduit;
 
-    if (param == null || param.toString() == "") {
+    if (param == null || param.toString().isEmpty) {
       indexProduit = 0;
     } else {
       indexProduit = int.parse(param.toString());
     }
 
-    if (indexProduit < 0 || indexProduit >= AllProductData.Produits.length) {
-      indexProduit = 0;
-    }
-
+    //Produit productInfo = widget.produit;
     Produit productInfo = AllProductData.Produits[indexProduit];
 
     return Scaffold(
@@ -35,7 +55,7 @@ class _MyWidgetState extends State<ProduitDetailPage> {
             foregroundDecoration: BoxDecoration(color: Colors.black12),
             height: MediaQuery.of(context).size.height * 0.45,
             width: double.infinity,
-            child: Image.network(productInfo.imageUrl, fit: BoxFit.cover),
+            child: Image.network(productInfo.imageUrl),
           ),
           SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -57,7 +77,7 @@ class _MyWidgetState extends State<ProduitDetailPage> {
                         ),
                       ),
                       Text(
-                        '${productInfo.price} TND',
+                        productInfo.price.toString(),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.blue,
@@ -78,6 +98,37 @@ class _MyWidgetState extends State<ProduitDetailPage> {
                     ],
                   ),
                 ),
+                //bouton en ba
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          panier.ajouterProduit(
+                            ProduitPanier(
+                              id: productInfo.id,
+                              title: productInfo.title,
+                              description: productInfo.description,
+                              price: productInfo.price,
+                              imageUrl: productInfo.imageUrl,
+                              quantite: 1,
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.pink,
+                          foregroundColor: Colors.white,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                          ),
+                        ),
+                        child: const Text("Add to Cart"),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -87,15 +138,6 @@ class _MyWidgetState extends State<ProduitDetailPage> {
   }
 
   Widget infoProduct(String title, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
-          Flexible(child: Text(value, textAlign: TextAlign.end)),
-        ],
-      ),
-    );
+    return Row(children: [Text(title), Text(value)]);
   }
 }
