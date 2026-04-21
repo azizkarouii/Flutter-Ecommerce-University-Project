@@ -1,13 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Menu extends StatefulWidget {
   const Menu({super.key});
 
   @override
-  State<Menu> createState() => _MyWidgetSpace();
+  State<Menu> createState() => _MyWidgetState();
 }
 
-class _MyWidgetSpace extends State<Menu> {
+class _MyWidgetState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -18,43 +21,55 @@ class _MyWidgetSpace extends State<Menu> {
             accountEmail: Text("mohamed.aziz.karoui@gmail.com"),
             currentAccountPicture: CircleAvatar(
               backgroundImage: NetworkImage(
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnSA1zygA3rubv-VK0DrVcQ02Po79kJhXo_A&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT11ii7P372sU9BZPZgOR6ohoQbBJWbkJ0OVA&s",
               ),
             ),
           ),
           ListTile(
             leading: Icon(Icons.home),
-            title: Text("Accueil"),
+            title: Text("Acceuil"),
             onTap: () {
               Navigator.pushNamed(context, "home");
             },
           ),
           ListTile(
-            leading: Icon(Icons.list_alt),
+            leading: Icon(Icons.list),
             title: Text("Liste Produit"),
             onTap: () {
-              Navigator.pushNamed(context, "ListeProduits");
+              Navigator.pushNamed(context, "listProduit");
             },
           ),
           ListTile(
             leading: Icon(Icons.shopping_cart),
             title: Text("Panier"),
             onTap: () {
-              Navigator.pushNamed(context, "PanierPage");
+              Navigator.pushNamed(context, "panier");
             },
           ),
           ListTile(
             leading: Icon(Icons.favorite),
             title: Text("Mes Favoris"),
             onTap: () {
-              Navigator.pushNamed(context, "FavoritePage");
+              Navigator.pushNamed(context, "favori");
             },
           ),
           ListTile(
             leading: Icon(Icons.person),
             title: Text("Profil"),
             onTap: () {
-              Navigator.pushNamed(context, "UserInfoPage");
+              Navigator.pushNamed(context, "profil");
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.exit_to_app),
+            title: Text("Quitter"),
+            onTap: () {
+              //Android : API <20 , >20
+              // Web
+              //IOS
+              //SystemNavigator.pop();
+              exit(0);
             },
           ),
         ],

@@ -14,7 +14,7 @@ class CartEmpty extends StatelessWidget {
           height: MediaQuery.of(context).size.height * 0.3,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/img/empty_cart.png'),
+              image: AssetImage('assets/img/emptycart.png'),
               fit: BoxFit.cover,
             ),
           ),

@@ -35,6 +35,7 @@ class _MyWidgetState extends State<ProduitDetailPage> {
   @override
   Widget build(BuildContext context) {
     final panier = Provider.of<PanierProvider>(context);
+
     final dynamic param = ModalRoute.of(context)!.settings.arguments;
     int indexProduit;
 
@@ -110,12 +111,13 @@ class _MyWidgetState extends State<ProduitDetailPage> {
                             ProduitPanier(
                               id: productInfo.id,
                               title: productInfo.title,
-                              description: productInfo.description,
                               price: productInfo.price,
                               imageUrl: productInfo.imageUrl,
+                              description: productInfo.description,
                               quantite: 1,
                             ),
                           );
+                          panier.saveCart();//save LocalStorage
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.pink,
